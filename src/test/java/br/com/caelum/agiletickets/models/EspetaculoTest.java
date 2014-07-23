@@ -86,8 +86,84 @@ public class EspetaculoTest  {
 	public void deveCriarUmaSessaoParaDatasIguaisPeriodicidadeDiaria() {
 		Espetaculo ivete = new Espetaculo();
 
-		ivete.criaSessoes(new LocalDate(), new LocalDate(), new LocalTime(), Periodicidade.DIARIA);
+		LocalDate inicio = new LocalDate();
+		LocalDate fim = new LocalDate();
+		LocalTime horario = new LocalTime();
+		
+		ivete.criaSessoes(inicio, fim, horario, Periodicidade.DIARIA);
 		assertEquals(1, ivete.getSessoes().size());
+		Sessao sessao = ivete.getSessoes().get(0);
+		assertEquals(ivete, sessao.getEspetaculo());
+		
+		LocalDate inicioSessao = sessao.getInicio().toLocalDate();
+		assertEquals(inicio, inicioSessao);
+
+		LocalTime horarioSessao = sessao.getInicio().toLocalTime();
+		assertEquals(horario, horarioSessao);
+
+	}
+
+	@Test
+	public void deveCriarMaisSessoesParaDatasDistintasPeriodicidadeDiaria() {
+		Espetaculo ivete = new Espetaculo();
+
+		LocalDate inicio = new LocalDate();
+		LocalDate fim = new LocalDate().plusDays(2);
+		LocalTime horario = new LocalTime();
+		
+		ivete.criaSessoes(inicio, fim, horario, Periodicidade.DIARIA);
+		assertEquals(3, ivete.getSessoes().size());
+		Sessao sessao = ivete.getSessoes().get(2);
+		assertEquals(ivete, sessao.getEspetaculo());
+		
+		LocalDate inicioSessao = sessao.getInicio().toLocalDate();
+		assertEquals(inicio.plusDays(2), inicioSessao);
+
+		LocalTime horarioSessao = sessao.getInicio().toLocalTime();
+		assertEquals(horario, horarioSessao);
+
+	}
+
+	@Test
+	public void deveCriarMaisSessoesParaPeriodoMaiorQueUmaSemanaPeriodicidadeSemanal() {
+		Espetaculo ivete = new Espetaculo();
+
+		LocalDate inicio = new LocalDate();
+		LocalDate fim = new LocalDate().plusDays(20);
+		LocalTime horario = new LocalTime();
+		
+		ivete.criaSessoes(inicio, fim, horario, Periodicidade.SEMANAL);
+		assertEquals(3, ivete.getSessoes().size());
+		Sessao sessao = ivete.getSessoes().get(2);
+		assertEquals(ivete, sessao.getEspetaculo());
+		
+		LocalDate inicioSessao = sessao.getInicio().toLocalDate();
+		//o inicio da ultima sessao sera em 20 dias menos a quantidade de dias que sobram antes de completar mais uma semana.
+		assertEquals(inicio.plusDays(20 - (20%7)), inicioSessao);
+
+		LocalTime horarioSessao = sessao.getInicio().toLocalTime();
+		assertEquals(horario, horarioSessao);
+
 	}
 	
+	@Test
+	public void deveCriarUmaSessaoParaPeriodoMenorQueUmaSemanaPeriodicidadeSemanal() {
+		Espetaculo ivete = new Espetaculo();
+
+		LocalDate inicio = new LocalDate();
+		LocalDate fim = new LocalDate().plusDays(6);
+		LocalTime horario = new LocalTime();
+		
+		ivete.criaSessoes(inicio, fim, horario, Periodicidade.SEMANAL);
+		assertEquals(1, ivete.getSessoes().size());
+		Sessao sessao = ivete.getSessoes().get(0);
+		assertEquals(ivete, sessao.getEspetaculo());
+		
+		LocalDate inicioSessao = sessao.getInicio().toLocalDate();
+		assertEquals(inicio, inicioSessao);
+
+		LocalTime horarioSessao = sessao.getInicio().toLocalTime();
+		assertEquals(horario, horarioSessao);
+
+	}
 }
