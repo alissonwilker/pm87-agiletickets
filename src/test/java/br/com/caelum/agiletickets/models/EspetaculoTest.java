@@ -1,6 +1,10 @@
 package br.com.caelum.agiletickets.models;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -90,9 +94,9 @@ public class EspetaculoTest  {
 		LocalDate fim = new LocalDate();
 		LocalTime horario = new LocalTime();
 		
-		ivete.criaSessoes(inicio, fim, horario, Periodicidade.DIARIA);
-		assertEquals(1, ivete.getSessoes().size());
-		Sessao sessao = ivete.getSessoes().get(0);
+		List<Sessao> sessoes = ivete.criaSessoes(inicio, fim, horario, Periodicidade.DIARIA);
+		assertEquals(1, sessoes.size());
+		Sessao sessao = sessoes.get(0);
 		assertEquals(ivete, sessao.getEspetaculo());
 		
 		LocalDate inicioSessao = sessao.getInicio().toLocalDate();
@@ -111,9 +115,9 @@ public class EspetaculoTest  {
 		LocalDate fim = new LocalDate().plusDays(2);
 		LocalTime horario = new LocalTime();
 		
-		ivete.criaSessoes(inicio, fim, horario, Periodicidade.DIARIA);
-		assertEquals(3, ivete.getSessoes().size());
-		Sessao sessao = ivete.getSessoes().get(2);
+		List<Sessao> sessoes = ivete.criaSessoes(inicio, fim, horario, Periodicidade.DIARIA);
+		assertEquals(3, sessoes.size());
+		Sessao sessao = sessoes.get(2);
 		assertEquals(ivete, sessao.getEspetaculo());
 		
 		LocalDate inicioSessao = sessao.getInicio().toLocalDate();
@@ -132,9 +136,9 @@ public class EspetaculoTest  {
 		LocalDate fim = new LocalDate().plusDays(20);
 		LocalTime horario = new LocalTime();
 		
-		ivete.criaSessoes(inicio, fim, horario, Periodicidade.SEMANAL);
-		assertEquals(3, ivete.getSessoes().size());
-		Sessao sessao = ivete.getSessoes().get(2);
+		List<Sessao> sessoes = ivete.criaSessoes(inicio, fim, horario, Periodicidade.SEMANAL);
+		assertEquals(3, sessoes.size());
+		Sessao sessao = sessoes.get(2);
 		assertEquals(ivete, sessao.getEspetaculo());
 		
 		LocalDate inicioSessao = sessao.getInicio().toLocalDate();
@@ -154,9 +158,9 @@ public class EspetaculoTest  {
 		LocalDate fim = new LocalDate().plusDays(6);
 		LocalTime horario = new LocalTime();
 		
-		ivete.criaSessoes(inicio, fim, horario, Periodicidade.SEMANAL);
-		assertEquals(1, ivete.getSessoes().size());
-		Sessao sessao = ivete.getSessoes().get(0);
+		List<Sessao> sessoes = ivete.criaSessoes(inicio, fim, horario, Periodicidade.SEMANAL);
+		assertEquals(1, sessoes.size());
+		Sessao sessao = sessoes.get(0);
 		assertEquals(ivete, sessao.getEspetaculo());
 		
 		LocalDate inicioSessao = sessao.getInicio().toLocalDate();
